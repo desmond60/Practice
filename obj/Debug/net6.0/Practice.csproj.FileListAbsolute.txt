@@ -1,0 +1,17 @@
+D:\Все для учебы\Practice\Practice\bin\Debug\net6.0\Practice.exe
+D:\Все для учебы\Practice\Practice\bin\Debug\net6.0\Practice.deps.json
+D:\Все для учебы\Practice\Practice\bin\Debug\net6.0\Practice.runtimeconfig.json
+D:\Все для учебы\Practice\Practice\bin\Debug\net6.0\Practice.dll
+D:\Все для учебы\Practice\Practice\bin\Debug\net6.0\ref\Practice.dll
+D:\Все для учебы\Practice\Practice\bin\Debug\net6.0\Practice.pdb
+D:\Все для учебы\Practice\Practice\bin\Debug\net6.0\Newtonsoft.Json.dll
+D:\Все для учебы\Practice\Practice\obj\Debug\net6.0\Practice.csproj.AssemblyReference.cache
+D:\Все для учебы\Practice\Practice\obj\Debug\net6.0\Practice.GeneratedMSBuildEditorConfig.editorconfig
+D:\Все для учебы\Practice\Practice\obj\Debug\net6.0\Practice.AssemblyInfoInputs.cache
+D:\Все для учебы\Practice\Practice\obj\Debug\net6.0\Practice.AssemblyInfo.cs
+D:\Все для учебы\Practice\Practice\obj\Debug\net6.0\Practice.csproj.CoreCompileInputs.cache
+D:\Все для учебы\Practice\Practice\obj\Debug\net6.0\Practice.csproj.CopyComplete
+D:\Все для учебы\Practice\Practice\obj\Debug\net6.0\Practice.dll
+D:\Все для учебы\Practice\Practice\obj\Debug\net6.0\ref\Practice.dll
+D:\Все для учебы\Practice\Practice\obj\Debug\net6.0\Practice.pdb
+D:\Все для учебы\Practice\Practice\obj\Debug\net6.0\Practice.genruntimeconfig.cache
