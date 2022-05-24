@@ -1,3 +1,4 @@
+using Microsoft.Win32.SafeHandles;
 namespace Practice.other;
 
 public struct Grid    /// Структура сетки
@@ -98,16 +99,16 @@ public struct Kraev    /// Структура краевого
 
 public struct SLAU     /// Структура СЛАУ
 {
-    public Vector di, gg;                /// Матрица
+    public ComplexVector di, gg;         /// Матрица
     public int[] ig, jg;                 /// Массивы с индексами
-    public Vector f, q;                  /// Правая часть и решение
-    public Vector q_absolut;             /// Абсолютные значения U-функции
+    public ComplexVector f, q;           /// Правая часть и решение
+    public ComplexVector q_absolut;      /// Абсолютные значения U-функции
     public int N;                        /// Размерность матрицы
     public int N_el;                     /// Размерность gl и gu
 
     //* Умножение матрицы на вектор
-    public Vector mult(Vector x) {
-        var y = new Vector(x.Length);
+    public ComplexVector mult(ComplexVector x) {
+        var y = new ComplexVector(x.Length);
 
         for (int i = 0, jj = 0; i < x.Length; i++) {
             y[i] = di[i] * x[i];
@@ -119,25 +120,30 @@ public struct SLAU     /// Структура СЛАУ
         }
         return y;
     }
-
-    //* Очистка массивов
-    public void Clear() {
-        Vector.Clear(di);
-        Vector.Clear(gg);
-        Vector.Clear(f);
-        Vector.Clear(q);
-    }
 }
 
 public static class Helper
 {
 
     //* Скалярное произведение векторов
-    public static double Scalar(Vector frst, Vector scnd) {
-        double res = 0;
+    public static Complex Scalar(ComplexVector frst, ComplexVector scnd) {
+        Complex res = 0;
         for (int i = 0; i < frst.Length; i++)
             res += frst[i]*scnd[i];
         return res;
+    }
+
+    //* Модуль комплексного вектора
+    public static double Norm(ComplexVector vec) {
+        double norm = 0;
+        for (int i = 0; i < vec.Length; i++)
+            norm += vec[i].Real*vec[i].Real + vec[i].Imaginary*vec[i].Imaginary;
+        return Sqrt(norm);
+    }
+
+    //* Модуль комплексного числа
+    public static double Norm(Complex ch) {
+        return Sqrt(ch.Real*ch.Real + ch.Imaginary*ch.Imaginary);
     }
 
     //* Окно помощи при запуске (если нет аргументов или по команде)

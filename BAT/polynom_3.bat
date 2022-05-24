@@ -1,0 +1,1 @@
+dotnet run -i files/Polynom_3/test.json

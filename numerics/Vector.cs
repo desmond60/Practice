@@ -1,4 +1,4 @@
-namespace Practice.other;
+namespace Practice.numerics;
 public class Vector : IEnumerable
 {
     public double[] vector;            /// Вектор

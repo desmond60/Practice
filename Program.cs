@@ -22,7 +22,7 @@
     Grid grid = generator.generate();
 
     // Метод МКЭ
-    FEM<double> task = new FEM<double>(grid, Path.GetDirectoryName(args[1])!);
+    FEM task = new FEM(grid, Path.GetDirectoryName(args[1])!);
     task.solve();
 }
 catch (FileNotFoundException ex) {

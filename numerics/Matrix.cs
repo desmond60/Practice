@@ -1,5 +1,4 @@
-using System.ComponentModel;
-namespace Practice.other;
+namespace Practice.numerics;
 public class Matrix
 {
     private double[,] matrix;                        /// Матрица (квадратная)
@@ -31,7 +30,7 @@ public class Matrix
         set { matrix[i, j] = value; }
     }
 
-    //* Перегрузка умножения
+    //* Перегрузка умножения (на числовой вектор)
     public static Vector operator *(Matrix mat, Vector vec) {
         var result = new Vector(vec.Length);
         for (int i = 0; i < vec.Length; i++)
@@ -41,9 +40,29 @@ public class Matrix
         return result;
     }
 
-    //* Перегрузка умножение константы на матрицу
+    //* Перегрузка умножения (на комплексно-числовой вектор)
+    public static ComplexVector operator *(Matrix mat, ComplexVector vec) {
+        var result = new ComplexVector(vec.Length);
+        for (int i = 0; i < vec.Length; i++)
+            for (int j = 0; j < vec.Length; j++)
+                result[i] += mat[i, j] * vec[j];
+
+        return result;
+    }
+
+    //* Перегрузка умножение числа на матрицу
     public static Matrix operator *(double _const, Matrix mat) {
         var result = new Matrix(mat.Dim);
+        for (int i = 0; i < result.Dim; i++)
+            for (int j = 0; j < result.Dim; j++)
+                result[i, j] = _const * mat[i, j];
+
+        return result;
+    }
+
+    //* Перегрузка умножение комплексного числа на матрицу
+    public static ComplexMatrix operator *(Complex _const, Matrix mat) {
+        var result = new ComplexMatrix(mat.Dim);
         for (int i = 0; i < result.Dim; i++)
             for (int j = 0; j < result.Dim; j++)
                 result[i, j] = _const * mat[i, j];

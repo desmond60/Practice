@@ -14,23 +14,24 @@ public class LOS
     } 
 
     //* Решение СЛАУ
-    public Vector solve(bool isLog = true) {
-        var r      = new Vector(slau.N);
-        var z      = new Vector(slau.N);
-        var multLr = new Vector(slau.N);
-        var Lr     = new Vector(slau.N);
-        var p      = new Vector(slau.N);
-        double alpha, betta, Eps;
+    public ComplexVector solve(bool isLog = true) {
+        var r      = new ComplexVector(slau.N);
+        var z      = new ComplexVector(slau.N);
+        var multLr = new ComplexVector(slau.N);
+        var Lr     = new ComplexVector(slau.N);
+        var p      = new ComplexVector(slau.N);
+        Complex alpha, betta;
+        double Eps;
         int iter = 0;
 
-        double[] L = Enumerable.Range(0, slau.N).Select(i => 1.0 / slau.di[i]).ToArray();
+        ComplexVector L = new ComplexVector(Enumerable.Range(0, slau.N).Select(i => new Complex(1, 0) / slau.di[i]).ToArray());
 
-        Vector multX = slau.mult(slau.q);
+        ComplexVector multX = slau.mult(slau.q);
         for (int i = 0; i < r.Length; i++) {
             r[i] = L[i] * (slau.f[i] - multX[i]);
             z[i] = L[i] * r[i];
         }
-        Vector multZ = slau.mult(z);
+        ComplexVector multZ = slau.mult(z);
         for (int i = 0; i < p.Length; i++)
             p[i] = L[i] * multZ[i];
 
@@ -51,12 +52,13 @@ public class LOS
                 z[i] = L[i] * r[i] + betta * z[i];
                 p[i] = multLr[i] + betta * p[i];
             }
-            Eps = Scalar(r, r);
-            
+            Eps = Norm(Scalar(r, r));
+
             iter++;
+
             if (isLog) printLog(iter, Eps);
-        } while (iter < maxIter && 
-                  Eps > EPS);
+        } while (iter < maxIter  && 
+                 Eps  > EPS);
 
         return slau.q;
     }
