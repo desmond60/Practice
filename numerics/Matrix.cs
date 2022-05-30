@@ -1,18 +1,18 @@
 namespace Practice.numerics;
 public class Matrix
 {
-    private double[,] matrix;                        /// Матрица (квадратная)
-    public uint Dim { get; private set; }            /// Размерность матрицы
+    private double[,] matrix;                /// Матрица (квадратная)
+    public int Dim { get; init; }       /// Размерность матрицы
 
     //* Конструктор (с размерностью)
-    public Matrix(uint _dim) {
+    public Matrix(int _dim) {
         matrix = new double[_dim, _dim];
         this.Dim = _dim;
     }
 
     //* Конструктор (с двумерным массивом)
     public Matrix(double[,] _mat) {        
-        Dim = (uint)_mat.GetUpperBound(0) + 1;
+        Dim = _mat.GetUpperBound(0) + 1;
         matrix = new double[Dim, Dim];
         for (int i = 0; i < Dim; i++)
             for (int j = 0; j < Dim; j++)
@@ -30,33 +30,21 @@ public class Matrix
         set { matrix[i, j] = value; }
     }
 
-    //* Перегрузка умножения (на числовой вектор)
-    public static Vector operator *(Matrix mat, Vector vec) {
-        var result = new Vector(vec.Length);
-        for (int i = 0; i < vec.Length; i++)
-            for (int j = 0; j < vec.Length; j++)
-                result[i] += mat[i, j] * vec[j];
-
-        return result;
-    }
-
     //* Перегрузка умножения (на комплексно-числовой вектор)
     public static ComplexVector operator *(Matrix mat, ComplexVector vec) {
         var result = new ComplexVector(vec.Length);
         for (int i = 0; i < vec.Length; i++)
             for (int j = 0; j < vec.Length; j++)
                 result[i] += mat[i, j] * vec[j];
-
         return result;
     }
 
     //* Перегрузка умножение числа на матрицу
-    public static Matrix operator *(double _const, Matrix mat) {
+    public static Matrix operator *(double Const, Matrix mat) {
         var result = new Matrix(mat.Dim);
         for (int i = 0; i < result.Dim; i++)
             for (int j = 0; j < result.Dim; j++)
-                result[i, j] = _const * mat[i, j];
-
+                result[i, j] = Const * mat[i, j];
         return result;
     }
 
@@ -66,7 +54,6 @@ public class Matrix
         for (int i = 0; i < result.Dim; i++)
             for (int j = 0; j < result.Dim; j++)
                 result[i, j] = _const * mat[i, j];
-
         return result;
     }
 
@@ -76,7 +63,6 @@ public class Matrix
         for (int i = 0; i < result.Dim; i++)
             for (int j = 0; j < result.Dim; j++)
                 result[i, j] = mat1[i, j] + mat2[i, j];
-
         return result;
     }
 

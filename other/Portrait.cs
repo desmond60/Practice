@@ -14,7 +14,7 @@ public class Portrait
     }
 
     //* Генерация ig, jg (размерность - n)
-    public int GenPortrait(ref int[] ig, ref int[] jg, Elem[] elems) {
+    public int GenPortrait(ref Vector<int> ig, ref Vector<int> jg, Elem[] elems) {
 
         var list = new int[countNode][];
 
@@ -32,13 +32,13 @@ public class Portrait
         }
 
         // Заполнение ig[]
-        ig = new int[countNode + 1];
+        ig = new Vector<int>(countNode + 1);
         ig[0] = ig[1] = 0;
-        for (uint i = 1; i < countNode; i++)
+        for (int i = 1; i < countNode; i++)
             ig[i + 1] = (ig[i] + list[i].Length);
 
         // Заполнение jg[]
-        jg = new int[ig[countNode]];
+        jg = new Vector<int>(ig[countNode]);
         int jj = 0;
         for (int i = 0; i < countNode; i++)
             for (int j = 0; j < list[i].Length; j++, jj++)

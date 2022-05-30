@@ -1,14 +1,14 @@
 namespace Practice;
 public class Generate
 {
-    protected Vector start  { get; set; }      /// Начальная точка
-    protected Vector end    { get; set; }      /// Конечная точка
-    protected double hx     { get; set; }      /// Шаг по Оси X
-    protected double hy     { get; set; }      /// Шаг по Оси Y
-    protected double kx     { get; set; }      /// Коэффициент деления по Оси X  
-    protected double ky     { get; set; }      /// Коэффициент деления по Оси Y  
+    protected Vector<double> start  { get; set; }      /// Начальная точка
+    protected Vector<double> end    { get; set; }      /// Конечная точка
+    protected double hx             { get; set; }      /// Шаг по Оси X
+    protected double hy             { get; set; }      /// Шаг по Оси Y
+    protected double kx             { get; set; }      /// Коэффициент деления по Оси X  
+    protected double ky             { get; set; }      /// Коэффициент деления по Оси Y  
 
-    protected string Path   { get; set; }      /// Путь к папке с задачей 
+    protected string Path           { get; set; }      /// Путь к папке с задачей 
      
     private int N_X;                                            /// Количество узлов по Оси X
     private int N_Y;                                            /// Количество узлов по Оси Y
@@ -51,8 +51,8 @@ public class Generate
 
     //* Генерация координат
     private Node[] generate_coords() {
-        Vector X_vec = generate_array(start[0], end[0], hx, kx, N_X);
-        Vector Y_vec = generate_array(start[1], end[1], hy, ky, N_Y);
+        Vector<double> X_vec = generate_array(start[0], end[0], hx, kx, N_X);
+        Vector<double> Y_vec = generate_array(start[1], end[1], hy, ky, N_Y);
     
         Node[] nodes = new Node[Count_Node];
 
@@ -65,8 +65,8 @@ public class Generate
     }
 
     //* Генерация массива по Оси (с шагом и коэффицентом разрядки)
-    private Vector generate_array(double start, double end, double h, double k, int n) {
-        var coords = new Vector(n);
+    private Vector<double> generate_array(double start, double end, double h, double k, int n) {
+        var coords = new Vector<double>(n);
         coords[0]     = start;
         coords[n - 1] = end;
         for (int i = 1; i < n - 1; i++, h *= k) 

@@ -1,18 +1,18 @@
 namespace Practice.numerics;
 public class ComplexMatrix
 {
-    private Complex[,] matrix;                        /// Матрица (квадратная)
-    public uint Dim { get; private set; }            /// Размерность матрицы
+    private Complex[,] matrix;               /// Матрица (квадратная)
+    public int Dim { get; init; }            /// Размерность матрицы
 
     //* Конструктор (с размерностью)
-    public ComplexMatrix(uint _dim) {
+    public ComplexMatrix(int _dim) {
         matrix = new Complex[_dim, _dim];
         this.Dim = _dim;
     }
 
     //* Конструктор (с двумерным массивом)
     public ComplexMatrix(Complex[,] _mat) {        
-        Dim = (uint)_mat.GetUpperBound(0) + 1;
+        Dim = _mat.GetUpperBound(0) + 1;
         matrix = new Complex[Dim, Dim];
         for (int i = 0; i < Dim; i++)
             for (int j = 0; j < Dim; j++)

@@ -141,7 +141,8 @@ public class FEM
         // Вычисление f - на узлах КЭ 
         var f = new ComplexVector(4);                               
         for (int i = 0; i < f.Length; i++) {
-            Vector vec = new Vector(new double[]{ Nodes[Elems[index_fin_el].Node[i]].x, Nodes[Elems[index_fin_el].Node[i]].y});
+            Vector<double> vec = new Vector<double>(new double[]{ Nodes[Elems[index_fin_el].Node[i]].x, 
+                                                                  Nodes[Elems[index_fin_el].Node[i]].y});
             f[i] = F(vec);
         }
 
@@ -181,8 +182,10 @@ public class FEM
         slau.di[kraev.Node[1]] = new Complex(1, 0);
 
         // В вектор правой части ставим значение краевого условия
-        Vector vec0 = new Vector(new double[] {Nodes[kraev.Node[0]].x, Nodes[kraev.Node[0]].y});
-        Vector vec1 = new Vector(new double[] {Nodes[kraev.Node[1]].x, Nodes[kraev.Node[1]].y});
+        Vector<double> vec0 = new Vector<double>(new double[] {Nodes[kraev.Node[0]].x, 
+                                                               Nodes[kraev.Node[0]].y});
+        Vector<double> vec1 = new Vector<double>(new double[] {Nodes[kraev.Node[1]].x, 
+                                                               Nodes[kraev.Node[1]].y});
         slau.f[kraev.Node[0]] = Absolut(vec0);
         slau.f[kraev.Node[1]] = Absolut(vec1);
 
@@ -225,7 +228,7 @@ public class FEM
     //* Абсолютное решение СЛАУ
     private void AbsolutSolve() {
         for (int i = 0; i < Nodes.Length; i++) {
-            Vector vec = new Vector(new double[] { Nodes[i].x, Nodes[i].y });
+            Vector<double> vec = new Vector<double>(new double[] { Nodes[i].x, Nodes[i].y });
             slau.q_absolut[i] = Absolut(vec);
         }
     }

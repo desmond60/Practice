@@ -10,6 +10,12 @@
         "runtime": {
           "lib/netstandard2.0/Newtonsoft.Json.dll": {}
         }
+      },
+      "System.Runtime.Experimental/6.0.2": {
+        "type": "package",
+        "compile": {
+          "ref/net6.0/System.Runtime.dll": {}
+        }
       }
     }
   },
@@ -40,11 +46,29 @@
         "newtonsoft.json.nuspec",
         "packageIcon.png"
       ]
+    },
+    "System.Runtime.Experimental/6.0.2": {
+      "sha512": "YFw4XOgVaF9T8vT3V148ypGTm8PnEchW1eyq+7ssIh7fmr+6JY3oNFx5KivLSDC4ugNsAm7HqYPnQEpC0C/BXA==",
+      "type": "package",
+      "path": "system.runtime.experimental/6.0.2",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "Icon.png",
+        "LICENSE.TXT",
+        "THIRD-PARTY-NOTICES.TXT",
+        "ref/net6.0/System.Runtime.dll",
+        "ref/net6.0/System.Runtime.xml",
+        "system.runtime.experimental.6.0.2.nupkg.sha512",
+        "system.runtime.experimental.nuspec",
+        "useSharedDesignerContext.txt"
+      ]
     }
   },
   "projectFileDependencyGroups": {
     "net6.0": [
-      "Newtonsoft.Json >= 13.0.1"
+      "Newtonsoft.Json >= 13.0.1",
+      "System.Runtime.Experimental >= 6.0.2"
     ]
   },
   "packageFolders": {
@@ -94,6 +118,10 @@
           "Newtonsoft.Json": {
             "target": "Package",
             "version": "[13.0.1, )"
+          },
+          "System.Runtime.Experimental": {
+            "target": "Package",
+            "version": "[6.0.2, )"
           }
         },
         "imports": [

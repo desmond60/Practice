@@ -1,99 +1,120 @@
 namespace Practice.numerics;
-public class Vector : IEnumerable
+public class Vector<T> : IEnumerable 
+                where T : INumber<T>
 {
-    public double[] vector;            /// Вектор
+    private T[] vector;                 /// Вектор
     public int Length { get; init; }   /// Размерность вектора
 
     //* Реализация IEnumerable
     public IEnumerator GetEnumerator() => vector.GetEnumerator();
 
     //* Перегрузка неявного преобразования
-    public static explicit  operator double[](Vector vec) {
+    public static explicit operator T[](Vector<T> vec) {
         return vec.vector;
+    }
+
+    //* Деконструктор
+    public void Deconstruct(out T[] vec) {
+        vec = this.vector;
     }
 
     //* Конструктор (с размерностью)
     public Vector(int lenght) {
-        vector = new double[lenght];
+        vector = new T[lenght];
         this.Length = lenght;
     }
 
-    //* Деконструктор
-    public void Deconstruct(out double   x, 
-                            out double   y) 
-    {
-        x = vector[0];
-        y = vector[1];
-    }
-
     //* Конструктор (с массивом)
-    public Vector(double[] array) {
-        vector = new double[array.Length];
+    public Vector(T[] array) {
+        vector = new T[array.Length];
         this.Length = array.Length;
         Array.Copy(array, vector, array.Length);
     }
 
     //* Индексатор
-    public double this[int index] {
+    public T this[int index] {
         get => vector[index];
         set => vector[index] = value;
     }
 
-    //* Перегрузка умножения
-    public static Vector operator *(double Const, Vector vector) {
-        var result = new Vector(vector.Length);
-        for (int i = 0; i < vector.Length; i++)
-            result[i] = Const * vector[i];
-        return result;
-    }
-    public static Vector operator *(Vector vector, double Const) => Const * vector;
-
-    //* Перегрузка деления
-    public static Vector operator /(Vector vector, double Const) {
-        var result = new Vector(vector.Length);
-        for (int i = 0; i < vector.Length; i++)
-            result[i] = vector[i] / Const;
+    //* Перегрузка умножения двух векторов
+    public static T operator *(Vector<T> vec1, Vector<T> vec2) {
+        T result = T.Zero;
+        for (int i = 0; i < vec1.Length; i++)
+            result += vec1[i] * vec2[i];
         return result;
     }
 
-    //* Перегрузка сложения
-    public static Vector operator +(Vector vec1, Vector vec2) {
-        var result = new Vector(vec1.Length);
+    //* Перегрузка умножения на констунту (double)
+    public static Vector<T> operator *(double Const, Vector<T> vector) {
+        var result = new Vector<T>(vector.Length);
+        for (int i = 0; i < vector.Length; i++)
+            result[i] = T.Create(Const) * vector[i];
+        return result;
+    }
+    public static Vector<T> operator *(Vector<T> vector, double Const) => Const * vector;
+
+    //* Перегрузка умножения (на числовой вектор)
+    public static Vector<T> operator *(Matrix mat, Vector<T> vec)  { 
+        var result = new Vector<T>(vec.Length);
+        for (int i = 0; i < vec.Length; i++)
+            for (int j = 0; j < vec.Length; j++)
+                result[i] += T.Create(mat[i, j]) * vec[j];
+        return result;
+    }
+
+    //* Перегрузка деления на константу (double)
+    public static Vector<T> operator /(Vector<T> vector, double Const) {
+        var result = new Vector<T>(vector.Length);
+        for (int i = 0; i < vector.Length; i++)
+            result[i] = vector[i] / T.Create(Const);
+        return result;
+    }
+
+    //* Перегрузка сложения двух векторов
+    public static Vector<T> operator +(Vector<T> vec1, Vector<T> vec2) {
+        var result = new Vector<T>(vec1.Length);
         for (int i = 0; i < vec1.Length; i++)
             result[i] = vec1[i] + vec2[i];
         return result;
     }
 
-    //* Перегрузка вычитания
-    public static Vector operator -(Vector vec1, Vector vec2) {
-        var result = new Vector(vec1.Length);
+    //* Перегрузка вычитания двух векторов
+    public static Vector<T> operator -(Vector<T> vec1, Vector<T> vec2) {
+        var result = new Vector<T>(vec1.Length);
         for (int i = 0; i < vec1.Length; i++)
             result[i] = vec1[i] - vec2[i];
         return result;
     }
 
-    // //* Перегрузка тернарного минуса
-    public static Vector operator -(Vector vector) {
-        var result = new Vector(vector.Length);
+    //* Перегрузка тернарного минуса
+    public static Vector<T> operator -(Vector<T> vector) {
+        var result = new Vector<T>(vector.Length);
         for (int i = 0; i < vector.Length; i++)
-            result[i] = vector[i] * (-1);
+            result[i] = -vector[i];
         return result;
     }
 
+    //* Заполнение вектора числом (double)
+    public void Fill(double val) {
+        for (int i = 0; i < Length; i++)
+            vector[i] = T.Create(val);
+    }
+
     //* Копирование вектора
-    public static void Copy(Vector source, Vector dest) {
+    public static void Copy(Vector<T> source, Vector<T> dest) {
         for (int i = 0; i < source.Length; i++)
             dest[i] = source[i];
     }
 
     //* Очистка вектора
-    public static void Clear(Vector vector) {
+    public static void Clear(Vector<T> vector) {
         for (int i = 0; i < vector.Length; i++)
-            vector[i] = 0;
+            vector[i] = T.Zero;
     }
 
     //* Выделение памяти под вектор
-    public static void Resize(ref Vector vector, int lenght) {
+    public static void Resize(ref Vector<T> vector, int lenght) {
         vector = new(lenght);
     }
 
@@ -103,7 +124,7 @@ public class Vector : IEnumerable
         if (vector == null) return vec.ToString();
 
         for (int i = 0; i < Length; i++)
-            vec.Append(vector[i].ToString("E3") + "\n");    
+            vec.Append(vector[i].ToString() + "\n");    
         
         return vec.ToString();
     }

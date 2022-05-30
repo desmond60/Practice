@@ -1,0 +1,1 @@
+dotnet run -i files/NoPolynom/test.json

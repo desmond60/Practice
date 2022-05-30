@@ -11,15 +11,15 @@ public class Data
     public uint     N     { get; set; }       /// Номер функции
 
     //* Деконструктор
-    public void Deconstruct(out Vector   Start, 
-                            out Vector   End,
-                            out double   Hx, 
-                            out double   Hy, 
-                            out double   Kx,
-                            out double   Ky) 
+    public void Deconstruct(out Vector<double>   Start, 
+                            out Vector<double>   End,
+                            out double           Hx, 
+                            out double           Hy, 
+                            out double           Kx,
+                            out double           Ky) 
     {
-        Start = new Vector(start);
-        End   = new Vector(end);
+        Start = new Vector<double>(start);
+        End   = new Vector<double>(end);
         Hx    = hx;
         Hy    = hy;
         Kx    = kx;

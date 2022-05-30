@@ -100,7 +100,7 @@ public struct Kraev    /// Структура краевого
 public struct SLAU     /// Структура СЛАУ
 {
     public ComplexVector di, gg;         /// Матрица
-    public int[] ig, jg;                 /// Массивы с индексами
+    public Vector<int> ig, jg;           /// Массивы с индексами
     public ComplexVector f, q;           /// Правая часть и решение
     public ComplexVector q_absolut;      /// Абсолютные значения U-функции
     public int N;                        /// Размерность матрицы
